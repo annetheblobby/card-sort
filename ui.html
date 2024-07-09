@@ -1,0 +1,57 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+  }
+
+  label {
+    padding-bottom: 8px;
+    font-size: small;
+  }
+</style>
+
+<p>
+  Copy csv information into the textbox and click create! This currently
+  supports the GraphQL sidenav csv or a csv with one element per new line.
+</p>
+<!-- <p>Count: <input id="count" type="number" value="5" /></p> -->
+<label for="textcontent">CSV content:</label>
+<textarea id="textcontent" rows="15" cols="43"></textarea>
+<button id="create">Create</button>
+<script>
+  document.getElementById("create").onclick = () => {
+    const textarea = document.getElementById("textcontent");
+    const text = textarea.value;
+    parent.postMessage(
+      { pluginMessage: { type: "create-shapes", text: text } },
+      "*"
+    );
+  };
+</script>
