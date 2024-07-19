@@ -45,6 +45,8 @@
 <label for="textcontent">CSV content:</label>
 <textarea id="textcontent" rows="15" cols="43"></textarea>
 <button id="create">Create</button>
+<button id="generateList">Generate list from sort</button>
+<p id="list"></p>
 <script>
   document.getElementById("create").onclick = () => {
     const textarea = document.getElementById("textcontent");
@@ -53,5 +55,19 @@
       { pluginMessage: { type: "create-shapes", text: text } },
       "*"
     );
+  };
+  document.getElementById("generateList").onclick = () => {
+    parent.postMessage(
+      { pluginMessage: { type: "generate-nested-list", text: "" } },
+      "*"
+    );
+  };
+  window.onmessage = (event) => {
+    const { type, data } = event.data.pluginMessage;
+    if (type === "nested-list") {
+      // Handle the nested list data here
+      document.getElementById("list").innerText = data;
+      console.log("list:", data);
+    }
   };
 </script>
